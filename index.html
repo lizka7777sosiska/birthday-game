@@ -14,7 +14,6 @@
             height: 100vh;
         }
         
-        /* ===== ОБЩИЕ СТИЛИ ===== */
         .hidden { display: none !important; }
         button, input, .btn, .action-btn, .arrow-btn {
             font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
@@ -91,7 +90,7 @@
         }
         .progress-info .count { color: #ffde59; font-weight: bold; font-size: 20px; }
 
-        /* ===== КНОПКА КОМПЬЮТЕРА ===== */
+        /* КНОПКА КОМПЬЮТЕРА */
         .computer-btn {
             position: absolute;
             bottom: 180px;
@@ -119,7 +118,7 @@
         }
         .computer-btn:active { transform: scale(0.95); }
 
-        /* ===== ПОП-АП ПАРОЛЯ ДЛЯ РАБОЧЕГО СТОЛА ===== */
+        /* ПОП-АП ПАРОЛЯ */
         #desktop-password-popup {
             position: fixed;
             top: 0; left: 0;
@@ -167,7 +166,7 @@
             display: none;
         }
 
-        /* Поп-ап */
+        /* Поп-ап выигрыша */
         #win-popup { position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 50; padding: 20px; }
         #popup-card { background: #fff; color: #333; padding: 30px; border-radius: 30px; max-width: 340px; width: 100%; transform: scale(0.5); transition: 0.4s; }
         #popup-card.open { transform: scale(1); }
@@ -189,7 +188,7 @@
         .code-box input { background: transparent; border: 2px dashed #ff577f; border-radius: 12px; padding: 14px; width: 100%; font-size: 20px; text-align: center; letter-spacing: 5px; font-family: 'Courier New', monospace; color: #333; }
         .code-error { color: #ff3d6b; font-size: 14px; margin-top: 10px; display: none; font-weight: bold; }
 
-        /* ===== РАБОЧИЙ СТОЛ ===== */
+        /* РАБОЧИЙ СТОЛ */
         #desktop-screen {
             position: fixed; top:0; left:0; width:100vw; height:100vh;
             background: #008080; display: none; flex-direction: column; z-index: 70;
@@ -207,7 +206,7 @@
         .taskbar .start-btn { background: #3d7be0; border: 2px solid #6b9ce6; border-radius: 4px; color: #fff; padding: 6px 18px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 15px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
         .taskbar .taskbar-clock { margin-left: auto; color: #fff; font-size: 14px; background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 4px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
 
-        /* ===== ОКНО ПАПКИ ===== */
+        /* ОКНО ПАПКИ */
         .folder-window {
             position: fixed !important;
             top: 50% !important;
@@ -281,7 +280,7 @@
         .folder-file .file-icon { font-size: 56px; }
         .folder-file .file-name { font-size: 14px; background: rgba(255,255,255,0.7); padding: 2px 8px; border-radius: 3px; font-weight: bold; }
 
-        /* ===== ВИДЕО ===== */
+        /* ВИДЕО */
         #video-container {
             position: fixed !important;
             top:0 !important;
@@ -309,7 +308,7 @@
 
         #flash { position: fixed; top:0; left:0; width:100vw; height:100vh; background: #fff; opacity: 0; pointer-events: none; z-index: 200; transition: opacity 0.1s; }
 
-        /* Адаптивность для телефона */
+        /* Адаптивность */
         @media (max-width: 480px) {
             .toy-item { width: 80px; height: 80px; }
             .toys-pool { height: 150px; }
@@ -369,7 +368,6 @@
     <!-- Игра -->
     <div id="game-screen">
         <div class="machine-container">
-            <!-- КНОПКА КОМПЬЮТЕРА -->
             <button class="computer-btn" onclick="openDesktopPassword()">
                 💻 <span>Рабочий стол</span>
             </button>
@@ -395,7 +393,7 @@
         </div>
     </div>
 
-    <!-- ПОП-АП ПАРОЛЯ ДЛЯ РАБОЧЕГО СТОЛА -->
+    <!-- Поп-ап пароля -->
     <div id="desktop-password-popup">
         <div class="desktop-password-box">
             <h2>💻 Вход в систему</h2>
@@ -407,7 +405,7 @@
         </div>
     </div>
 
-    <!-- Поп-ап -->
+    <!-- Поп-ап выигрыша -->
     <div id="win-popup">
         <div id="popup-card">
             <div class="toy-image" id="popup-image"></div>
@@ -438,7 +436,9 @@
         <div class="desktop-icons">
             <div class="desktop-icon" id="folder-icon">
                 <div class="icon-image">📁</div>
-                <div class="icon-name"><span class="strikethrough">Эпштейна</span> Гули</div>
+                <div class="icon-name">
+                    файлы <span class="strikethrough">эпштейна</span> гули
+                </div>
             </div>
         </div>
         <div class="taskbar">
@@ -450,7 +450,7 @@
     <!-- ОКНО ПАПКИ -->
     <div class="folder-window" id="folder-window">
         <div class="folder-header">
-            <span>📁 <span class="strikethrough">Эпштейна</span> Гули</span>
+            <span>📁 файлы <span class="strikethrough">эпштейна</span> гули</span>
             <button class="close-btn" onclick="closeFolder()">✕</button>
         </div>
         <div class="folder-body" id="folder-body"></div>
@@ -465,7 +465,6 @@
     <div id="flash"></div>
 
     <script>
-        // ======== НАСТРОЙКИ ========
         const SECRET_PASSWORD = '29062005';
         const FINAL_CODE = 'love111';
         const DESKTOP_PASSWORD = 'love111';
@@ -516,7 +515,6 @@
             { name: '🚫 НЕ ОТКРЫВАТЬ', file: 'https://kinescope.io/nVCyFjCzMFJqfoWmSesdsr' }
         ];
 
-        // ======== ИГРА ========
         let clawX = 50, isMoving = false, caughtCount = 0, secretCode = null;
         const toyPositions = [{ left: 12, bottom: 60 }, { left: 34, bottom: 30 }, { left: 58, bottom: 25 }, { left: 82, bottom: 65 }];
 
@@ -556,7 +554,6 @@
             }
         }
 
-        // Управление
         const claw = document.getElementById('claw-system');
         const rope = document.getElementById('rope');
         const btnCatch = document.getElementById('btn-catch');
@@ -641,7 +638,6 @@
             }
         }
 
-        // ======== КНОПКА КОМПЬЮТЕРА ========
         function openDesktopPassword() {
             document.getElementById('desktop-password-popup').classList.add('active');
             document.getElementById('desktop-password-input').value = '';
@@ -666,7 +662,6 @@
             }
         }
 
-        // ======== РАБОЧИЙ СТОЛ ========
         function showDesktop() {
             document.getElementById('game-screen').style.display = 'none';
             document.getElementById('final-screen').style.display = 'none';
@@ -684,7 +679,6 @@
             document.getElementById('taskbar-clock').textContent = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
         }
 
-        // ======== ОКНА ========
         function openFolder() {
             const windowEl = document.getElementById('folder-window');
             const body = document.getElementById('folder-body');
@@ -708,7 +702,6 @@
             windowEl.classList.remove('active');
         }
 
-        // ======== ВИДЕО ========
         function playVideo(index) {
             const container = document.getElementById('video-container');
             const player = document.getElementById('video-player');
@@ -733,17 +726,12 @@
             container.classList.remove('active');
         }
 
-        // ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeVideo();
                 closeFolder();
                 closeDesktopPassword();
             }
-        });
-
-        // Enter в поле пароля для рабочего стола
-        document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && document.getElementById('desktop-password-popup').classList.contains('active')) {
                 checkDesktopPassword();
             }
@@ -755,6 +743,5 @@
         console.log('💻 Код для рабочего стола: love111');
         console.log('🚫 Видео №8: "НЕ ОТКРЫВАТЬ"');
     </script>
-
 </body>
 </html>
