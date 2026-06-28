@@ -1198,15 +1198,28 @@
             updateClock();
             setInterval(updateClock, 1000);
             
-            document.getElementById('folder-icon').onclick = function(e) {
-                e.preventDefault();
-                openFolder();
-            };
+            // ИСПРАВЛЕНО: Добавляем обработчики событий для папки и фото
+            const folderIcon = document.getElementById('folder-icon');
+            const photoIcon = document.getElementById('photo-icon');
             
-            document.getElementById('photo-icon').onclick = function(e) {
+            // Удаляем старые обработчики, если есть
+            folderIcon.onclick = null;
+            photoIcon.onclick = null;
+            
+            // Добавляем новые
+            folderIcon.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
+                console.log('📁 Клик по папке!');
+                openFolder();
+            });
+            
+            photoIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🖼️ Клик по фото!');
                 openPhoto();
-            };
+            });
         }
 
         function updateClock() {
@@ -1217,11 +1230,14 @@
 
         // ======== ОТКРЫТИЕ ПАПКИ ========
         function openFolder() {
+            console.log('📁 Открываем папку...');
             const windowEl = document.getElementById('folder-window');
             const body = document.getElementById('folder-body');
             
+            // Очищаем
             body.innerHTML = '';
             
+            // Добавляем видео
             videoFiles.forEach((video, index) => {
                 const file = document.createElement('div');
                 file.className = 'folder-file';
@@ -1231,11 +1247,13 @@
                 `;
                 file.onclick = function(e) {
                     e.stopPropagation();
+                    console.log('🎬 Клик по видео:', index + 1);
                     playVideo(index);
                 };
                 body.appendChild(file);
             });
             
+            // Показываем окно
             windowEl.classList.add('active');
             document.getElementById('photo-window').classList.remove('active');
         }
@@ -1246,6 +1264,7 @@
 
         // ======== ОТКРЫТИЕ ФОТО ========
         function openPhoto() {
+            console.log('🖼️ Открываем фото...');
             document.getElementById('photo-window').classList.add('active');
             document.getElementById('folder-window').classList.remove('active');
         }
@@ -1256,6 +1275,7 @@
 
         // ======== ВИДЕОПЛЕЕР ДЛЯ KINESCOPE ========
         function playVideo(index) {
+            console.log('🎬 Запуск видео:', index + 1);
             const container = document.getElementById('video-container');
             const player = document.getElementById('video-player');
             
@@ -1267,7 +1287,7 @@
             setTimeout(() => {
                 flash.style.opacity = '0';
                 container.style.display = 'flex';
-                // Добавляем параметр autoplay для Kinescope
+                // Добавляем параметр autoplay
                 player.src = videoFiles[index].file + '?autoplay=1';
             }, 150);
         }
@@ -1279,10 +1299,12 @@
             container.style.display = 'none';
         }
 
-        // Закрытие видео по Escape
+        // Закрытие по Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeVideo();
+                closeFolder();
+                closePhoto();
             }
         });
 
