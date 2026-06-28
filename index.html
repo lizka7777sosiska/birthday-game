@@ -6,9 +6,19 @@
     <title>🎁 Секретный квест!</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body { font-family: 'Segoe UI', cursive, sans-serif; background: #1a1a2e; color: #fff; overflow: hidden; height: 100vh; }
+        body { 
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif; 
+            background: #1a1a2e; 
+            color: #fff; 
+            overflow: hidden; 
+            height: 100vh;
+        }
         
+        /* ===== ОБЩИЕ СТИЛИ ===== */
         .hidden { display: none !important; }
+        button, input, .btn, .action-btn, .arrow-btn {
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
+        }
         
         /* Экран входа */
         #auth-screen {
@@ -74,8 +84,86 @@
         .action-btn:active { transform: translateY(6px); box-shadow: 0 2px 0 #cdae24; }
         .action-btn:disabled { opacity: 0.5; transform: translateY(4px); box-shadow: 0 4px 0 #cdae24; pointer-events: none; }
 
-        .progress-info { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 10px 18px; border-radius: 15px; font-size: 16px; z-index: 20; display: flex; align-items: center; gap: 8px; }
+        .progress-info { 
+            position: absolute; top: 20px; right: 20px; 
+            background: rgba(0,0,0,0.7); padding: 10px 18px; border-radius: 15px; font-size: 16px; z-index: 20; 
+            display: flex; align-items: center; gap: 8px; 
+        }
         .progress-info .count { color: #ffde59; font-weight: bold; font-size: 20px; }
+
+        /* ===== КНОПКА КОМПЬЮТЕРА ===== */
+        .computer-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 10px 15px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
+        }
+        .computer-btn:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #ffde59;
+        }
+        .computer-btn:active { transform: scale(0.95); }
+
+        /* ===== ПОП-АП ПАРОЛЯ ДЛЯ РАБОЧЕГО СТОЛА ===== */
+        #desktop-password-popup {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 80;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        #desktop-password-popup.active { display: flex; }
+        .desktop-password-box {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 30px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .desktop-password-box h2 { font-size: 22px; margin-bottom: 10px; }
+        .desktop-password-box p { font-size: 14px; opacity: 0.8; margin-bottom: 15px; }
+        .desktop-password-box input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            background: rgba(255,255,255,0.9);
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
+        }
+        .desktop-password-box .btn {
+            margin-top: 10px;
+        }
+        .desktop-password-error {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
 
         /* Поп-ап */
         #win-popup { position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 50; padding: 20px; }
@@ -83,8 +171,8 @@
         #popup-card.open { transform: scale(1); }
         #popup-card .toy-image { width: 120px; height: 120px; margin: 10px auto; background-size: contain; background-repeat: no-repeat; background-position: center; }
         #popup-card .toy-name { font-size: 24px; font-weight: bold; margin: 10px 0; background: linear-gradient(135deg, #f5576c, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        #popup-card .toy-desc { color: #666; font-size: 16px; }
-        #popup-card .secret-code { background: #f0f0f0; padding: 12px; border-radius: 12px; margin: 15px 0; font-family: monospace; font-size: 22px; letter-spacing: 4px; color: #ff577f; font-weight: bold; border: 2px dashed #ff577f; }
+        #popup-card .toy-desc { color: #666; font-size: 16px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
+        #popup-card .secret-code { background: #f0f0f0; padding: 12px; border-radius: 12px; margin: 15px 0; font-family: 'Courier New', monospace; font-size: 22px; letter-spacing: 4px; color: #ff577f; font-weight: bold; border: 2px dashed #ff577f; }
 
         /* Финал */
         #final-screen {
@@ -94,9 +182,9 @@
         }
         #final-screen .big-emoji { font-size: 80px; }
         #final-screen h1 { font-size: 32px; margin-bottom: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-        #final-screen p { font-size: 18px; max-width: 400px; margin: 10px auto; }
+        #final-screen p { font-size: 18px; max-width: 400px; margin: 10px auto; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
         .code-box { background: rgba(255,255,255,0.9); padding: 20px; border-radius: 20px; max-width: 340px; width: 100%; margin: 20px auto; }
-        .code-box input { background: transparent; border: 2px dashed #ff577f; border-radius: 12px; padding: 14px; width: 100%; font-size: 20px; text-align: center; letter-spacing: 5px; font-family: monospace; color: #333; }
+        .code-box input { background: transparent; border: 2px dashed #ff577f; border-radius: 12px; padding: 14px; width: 100%; font-size: 20px; text-align: center; letter-spacing: 5px; font-family: 'Courier New', monospace; color: #333; }
         .code-error { color: #ff3d6b; font-size: 14px; margin-top: 10px; display: none; font-weight: bold; }
 
         /* ===== РАБОЧИЙ СТОЛ ===== */
@@ -110,14 +198,14 @@
         .desktop-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 10px; border-radius: 8px; width: 110px; text-align: center; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .desktop-icon:hover { background: rgba(255,255,255,0.15); }
         .desktop-icon .icon-image { font-size: 72px; }
-        .desktop-icon .icon-name { font-size: 13px; word-wrap: break-word; max-width: 100px; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; }
+        .desktop-icon .icon-name { font-size: 13px; word-wrap: break-word; max-width: 100px; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
         .desktop-icon .icon-name .strikethrough { text-decoration: line-through; color: #ff6b6b; }
 
         .taskbar { position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(180deg, #245edc 0%, #1a4ba8 100%); z-index: 2; display: flex; align-items: center; padding: 0 15px; }
-        .taskbar .start-btn { background: #3d7be0; border: 2px solid #6b9ce6; border-radius: 4px; color: #fff; padding: 6px 18px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 15px; }
-        .taskbar .taskbar-clock { margin-left: auto; color: #fff; font-size: 14px; background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 4px; }
+        .taskbar .start-btn { background: #3d7be0; border: 2px solid #6b9ce6; border-radius: 4px; color: #fff; padding: 6px 18px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 15px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
+        .taskbar .taskbar-clock { margin-left: auto; color: #fff; font-size: 14px; background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 4px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
 
-        /* ===== ОКНА - ПРОСТЫЕ СТИЛИ ===== */
+        /* ===== ОКНА ===== */
         .folder-window, .photo-window {
             position: fixed !important;
             top: 50% !important;
@@ -130,7 +218,7 @@
             display: none !important;
             flex-direction: column;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
             max-height: 80vh;
         }
         .folder-window { width: 500px; max-width: 90vw; }
@@ -149,6 +237,7 @@
             font-size: 14px;
             font-weight: bold;
             flex-shrink: 0;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
         }
         .folder-header .strikethrough { text-decoration: line-through; color: #ff6b6b; }
         .folder-header .close-btn, .photo-header .close-btn {
@@ -185,6 +274,7 @@
             width: 100px;
             text-align: center;
             color: #333;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
         }
         .folder-file:hover { background: rgba(0,0,0,0.05); }
         .folder-file .file-icon { font-size: 56px; }
@@ -229,6 +319,7 @@
 
         #flash { position: fixed; top:0; left:0; width:100vw; height:100vh; background: #fff; opacity: 0; pointer-events: none; z-index: 200; transition: opacity 0.1s; }
 
+        /* Адаптивность */
         @media (max-width: 480px) {
             .toy-item { width: 80px; height: 80px; }
             .toys-pool { height: 150px; }
@@ -241,6 +332,13 @@
             .folder-file { width: 70px; padding: 10px; }
             .folder-file .file-icon { font-size: 40px; }
             #video-container { padding: 20px; }
+            .computer-btn { 
+                font-size: 14px; 
+                padding: 8px 12px;
+                top: 15px;
+                left: 15px;
+            }
+            .computer-btn span { display: none; }
         }
     </style>
 </head>
@@ -250,7 +348,7 @@
     <div id="auth-screen">
         <div class="login-box">
             <h2>🎮 Привет!</h2>
-            <p>Введи код:</p>
+            <p>Введи код, чтобы начать приключение:</p>
             <input type="tel" id="password-input" placeholder="ДДММГГГГ" maxlength="8">
             <button class="btn" onclick="checkPassword()">🚀 Начать!</button>
             <div class="error-msg" id="error-msg">😅 Не тот код!</div>
@@ -260,6 +358,11 @@
     <!-- Игра -->
     <div id="game-screen">
         <div class="machine-container">
+            <!-- КНОПКА КОМПЬЮТЕРА -->
+            <button class="computer-btn" onclick="openDesktopPassword()">
+                💻 <span>Рабочий стол</span>
+            </button>
+            
             <div class="progress-info">
                 <span>🎯</span>
                 <span class="count" id="caught-count">0</span>
@@ -278,6 +381,18 @@
             <button class="arrow-btn" id="btn-left">◀</button>
             <button class="action-btn" id="btn-catch">🎯 ХВАТАТЬ!</button>
             <button class="arrow-btn" id="btn-right">▶</button>
+        </div>
+    </div>
+
+    <!-- ПОП-АП ПАРОЛЯ ДЛЯ РАБОЧЕГО СТОЛА -->
+    <div id="desktop-password-popup">
+        <div class="desktop-password-box">
+            <h2>💻 Вход в систему</h2>
+            <p>Введи код доступа к рабочему столу:</p>
+            <input type="password" id="desktop-password-input" placeholder="Введи код" maxlength="20">
+            <button class="btn" onclick="checkDesktopPassword()">🔓 Войти</button>
+            <div class="desktop-password-error" id="desktop-password-error">❌ Неправильный код!</div>
+            <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.2); color:#fff;" onclick="closeDesktopPassword()">✕ Отмена</button>
         </div>
     </div>
 
@@ -341,7 +456,7 @@
             <button class="close-btn" onclick="closePhoto()">✕</button>
         </div>
         <div class="photo-body">
-            <img id="photo-image" src="foto.png" alt="Фото" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22 font-size=%2230%22 font-family=%22sans-serif%22%3E📸 Фото%3C/text%3E%3C/svg%3E'">
+            <img id="photo-image" src="foto.png" alt="Фото" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'padding:40px; text-align:center; color:#999; font-size:18px;\\'>📸 Фото не найдено<br><small style=\\'color:#ccc;\\'>файл foto.png отсутствует</small></div>'">
         </div>
     </div>
 
@@ -357,6 +472,7 @@
         // ======== НАСТРОЙКИ ========
         const SECRET_PASSWORD = '29062005';
         const FINAL_CODE = 'love111';
+        const DESKTOP_PASSWORD = 'love111';
         
         const toysData = [
             { id: 0, name: 'Печенье', image: 'cook.png', desc: 'Внутри код!', hasCode: true, code: 'love111' },
@@ -501,8 +617,35 @@
             }
         }
 
+        // ======== КНОПКА КОМПЬЮТЕРА ========
+        function openDesktopPassword() {
+            document.getElementById('desktop-password-popup').classList.add('active');
+            document.getElementById('desktop-password-input').value = '';
+            document.getElementById('desktop-password-input').focus();
+            document.getElementById('desktop-password-error').style.display = 'none';
+        }
+
+        function closeDesktopPassword() {
+            document.getElementById('desktop-password-popup').classList.remove('active');
+        }
+
+        function checkDesktopPassword() {
+            const pass = document.getElementById('desktop-password-input').value.toLowerCase().trim();
+            const error = document.getElementById('desktop-password-error');
+            if(pass === DESKTOP_PASSWORD) {
+                error.style.display = 'none';
+                document.getElementById('desktop-password-popup').classList.remove('active');
+                showDesktop();
+            } else {
+                error.style.display = 'block';
+                setTimeout(() => error.style.display = 'none', 3000);
+            }
+        }
+
         // ======== РАБОЧИЙ СТОЛ ========
         function showDesktop() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('final-screen').style.display = 'none';
             document.getElementById('desktop-screen').style.display = 'flex';
             updateClock();
             setInterval(updateClock, 1000);
@@ -535,7 +678,6 @@
                 body.appendChild(file);
             });
             
-            // Прямое управление display
             windowEl.style.display = 'flex';
             windowEl.classList.add('active');
             document.getElementById('photo-window').style.display = 'none';
@@ -594,12 +736,22 @@
                 closeVideo();
                 closeFolder();
                 closePhoto();
+                closeDesktopPassword();
+            }
+        });
+
+        // Enter в поле пароля для рабочего стола
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.getElementById('desktop-password-popup').classList.contains('active')) {
+                checkDesktopPassword();
             }
         });
 
         console.log('🎁 Игра загружена!');
         console.log('💡 Код входа: 29062005');
         console.log('🔑 Код из печенья: love111');
+        console.log('💻 Код для рабочего стола: love111');
     </script>
+
 </body>
 </html>
