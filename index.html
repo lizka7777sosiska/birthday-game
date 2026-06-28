@@ -94,12 +94,12 @@
         /* ===== КНОПКА КОМПЬЮТЕРА ===== */
         .computer-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            bottom: 180px;
+            left: 15px;
             background: rgba(0,0,0,0.7);
             border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            padding: 10px 15px;
+            border-radius: 50px;
+            padding: 12px 18px;
             color: #fff;
             font-size: 20px;
             cursor: pointer;
@@ -110,6 +110,8 @@
             backdrop-filter: blur(5px);
             transition: 0.3s;
             font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            touch-action: manipulation;
         }
         .computer-btn:hover {
             background: rgba(255,255,255,0.15);
@@ -169,9 +171,9 @@
         #win-popup { position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 50; padding: 20px; }
         #popup-card { background: #fff; color: #333; padding: 30px; border-radius: 30px; max-width: 340px; width: 100%; transform: scale(0.5); transition: 0.4s; }
         #popup-card.open { transform: scale(1); }
-        #popup-card .toy-image { width: 120px; height: 120px; margin: 10px auto; background-size: contain; background-repeat: no-repeat; background-position: center; }
-        #popup-card .toy-name { font-size: 24px; font-weight: bold; margin: 10px 0; background: linear-gradient(135deg, #f5576c, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        #popup-card .toy-desc { color: #666; font-size: 16px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
+        #popup-card .toy-image { width: 130px; height: 130px; margin: 10px auto; background-size: contain; background-repeat: no-repeat; background-position: center; }
+        #popup-card .toy-name { font-size: 26px; font-weight: bold; margin: 10px 0; background: linear-gradient(135deg, #f5576c, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #popup-card .toy-desc { color: #555; font-size: 17px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; line-height: 1.5; }
         #popup-card .secret-code { background: #f0f0f0; padding: 12px; border-radius: 12px; margin: 15px 0; font-family: 'Courier New', monospace; font-size: 22px; letter-spacing: 4px; color: #ff577f; font-weight: bold; border: 2px dashed #ff577f; }
 
         /* Финал */
@@ -205,12 +207,15 @@
         .taskbar .start-btn { background: #3d7be0; border: 2px solid #6b9ce6; border-radius: 4px; color: #fff; padding: 6px 18px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 15px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
         .taskbar .taskbar-clock { margin-left: auto; color: #fff; font-size: 14px; background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 4px; font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important; }
 
-        /* ===== ОКНА ===== */
-        .folder-window, .photo-window {
+        /* ===== ОКНО ПАПКИ ===== */
+        .folder-window {
             position: fixed !important;
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -50%) !important;
+            width: 500px;
+            max-width: 90vw;
+            max-height: 80vh;
             background: #ece9d8;
             border: 2px solid #0055a4;
             border-radius: 8px 8px 0 0;
@@ -219,14 +224,10 @@
             flex-direction: column;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
-            max-height: 80vh;
         }
-        .folder-window { width: 500px; max-width: 90vw; }
-        .photo-window { max-width: 90vw; }
+        .folder-window.active { display: flex !important; }
         
-        .folder-window.active, .photo-window.active { display: flex !important; }
-        
-        .folder-header, .photo-header {
+        .folder-header {
             background: linear-gradient(180deg, #0a3a7a 0%, #0055a4 100%);
             color: #fff;
             padding: 8px 12px;
@@ -240,7 +241,7 @@
             font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif !important;
         }
         .folder-header .strikethrough { text-decoration: line-through; color: #ff6b6b; }
-        .folder-header .close-btn, .photo-header .close-btn {
+        .folder-header .close-btn {
             background: #ff6b6b;
             border: none;
             color: #fff;
@@ -253,7 +254,7 @@
             align-items: center;
             justify-content: center;
         }
-        .folder-header .close-btn:hover, .photo-header .close-btn:hover { background: #ff4444; }
+        .folder-header .close-btn:hover { background: #ff4444; }
         
         .folder-body {
             padding: 20px;
@@ -279,17 +280,6 @@
         .folder-file:hover { background: rgba(0,0,0,0.05); }
         .folder-file .file-icon { font-size: 56px; }
         .folder-file .file-name { font-size: 14px; background: rgba(255,255,255,0.7); padding: 2px 8px; border-radius: 3px; font-weight: bold; }
-
-        .photo-body {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fff;
-            border-radius: 0 0 8px 8px;
-            flex-grow: 1;
-        }
-        .photo-body img { max-width: 100%; max-height: 60vh; object-fit: contain; border-radius: 8px; }
 
         /* ===== ВИДЕО ===== */
         #video-container {
@@ -319,26 +309,47 @@
 
         #flash { position: fixed; top:0; left:0; width:100vw; height:100vh; background: #fff; opacity: 0; pointer-events: none; z-index: 200; transition: opacity 0.1s; }
 
-        /* Адаптивность */
+        /* Адаптивность для телефона */
         @media (max-width: 480px) {
             .toy-item { width: 80px; height: 80px; }
             .toys-pool { height: 150px; }
             .control-panel { height: 110px; }
             .arrow-btn { width: 55px; height: 55px; font-size: 22px; }
             .action-btn { width: 90px; height: 65px; font-size: 14px; }
+            
+            .computer-btn { 
+                bottom: 150px;
+                left: 10px;
+                font-size: 16px;
+                padding: 10px 14px;
+                border-radius: 40px;
+            }
+            .computer-btn span { display: none; }
+            
             .desktop-icon { width: 80px; }
             .desktop-icon .icon-image { font-size: 52px; }
             .folder-window { width: 95vw; }
             .folder-file { width: 70px; padding: 10px; }
             .folder-file .file-icon { font-size: 40px; }
             #video-container { padding: 20px; }
+            
+            #popup-card .toy-image { width: 100px; height: 100px; }
+            #popup-card .toy-name { font-size: 22px; }
+            #popup-card .toy-desc { font-size: 15px; }
+        }
+
+        @media (max-width: 380px) {
             .computer-btn { 
-                font-size: 14px; 
+                bottom: 130px;
+                left: 8px;
+                font-size: 14px;
                 padding: 8px 12px;
-                top: 15px;
-                left: 15px;
             }
-            .computer-btn span { display: none; }
+            .toy-item { width: 65px; height: 65px; }
+            .toys-pool { height: 130px; }
+            .control-panel { height: 95px; }
+            .arrow-btn { width: 45px; height: 45px; font-size: 18px; }
+            .action-btn { width: 75px; height: 55px; font-size: 12px; }
         }
     </style>
 </head>
@@ -429,10 +440,6 @@
                 <div class="icon-image">📁</div>
                 <div class="icon-name"><span class="strikethrough">Эпштейна</span> Гули</div>
             </div>
-            <div class="desktop-icon" id="photo-icon">
-                <div class="icon-image">🖼️</div>
-                <div class="icon-name">Фото</div>
-            </div>
         </div>
         <div class="taskbar">
             <div class="start-btn">🪟 Пуск</div>
@@ -447,17 +454,6 @@
             <button class="close-btn" onclick="closeFolder()">✕</button>
         </div>
         <div class="folder-body" id="folder-body"></div>
-    </div>
-
-    <!-- ОКНО ФОТО -->
-    <div class="photo-window" id="photo-window">
-        <div class="photo-header">
-            <span>🖼️ Фото</span>
-            <button class="close-btn" onclick="closePhoto()">✕</button>
-        </div>
-        <div class="photo-body">
-            <img id="photo-image" src="foto.png" alt="Фото" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'padding:40px; text-align:center; color:#999; font-size:18px;\\'>📸 Фото не найдено<br><small style=\\'color:#ccc;\\'>файл foto.png отсутствует</small></div>'">
-        </div>
     </div>
 
     <!-- ВИДЕО -->
@@ -475,10 +471,38 @@
         const DESKTOP_PASSWORD = 'love111';
         
         const toysData = [
-            { id: 0, name: 'Печенье', image: 'cook.png', desc: 'Внутри код!', hasCode: true, code: 'love111' },
-            { id: 1, name: 'Машинка', image: 'kchay.png', desc: 'Качау!', hasCode: false, code: null },
-            { id: 2, name: 'Лабубу', image: 'labubu.png', desc: 'Ультра-редкая!', hasCode: false, code: null },
-            { id: 3, name: 'Жвачка', image: 'loveis.png', desc: 'Пузыри любви!', hasCode: false, code: null }
+            { 
+                id: 0, 
+                name: '🍪 Печенье с предсказанием', 
+                image: 'cook.png', 
+                desc: 'Внутри спрятан секретный код! Запомни его — он откроет дверь к тайне! ✨',
+                hasCode: true, 
+                code: 'love111' 
+            },
+            { 
+                id: 1, 
+                name: '🏎️ Молния Маккуин', 
+                image: 'kchay.png', 
+                desc: 'Ка-чау! Ты мчишь в свой лучший год — быстрый, яркий и незабываемый! 🌟',
+                hasCode: false, 
+                code: null 
+            },
+            { 
+                id: 2, 
+                name: '🧸 Лабубу с твоим лицом', 
+                image: 'labubu.png', 
+                desc: 'Ультра-редкая VIP-игрушка! Существует в единственном экземпляре — только для тебя! 💎',
+                hasCode: false, 
+                code: null 
+            },
+            { 
+                id: 3, 
+                name: '🫧 Жвачка "Лов Ис"', 
+                image: 'loveis.png', 
+                desc: 'Надувай пузыри любви и удачи! С каждым пузырём сбывается желание! 🎈',
+                hasCode: false, 
+                code: null 
+            }
         ];
 
         const videoFiles = [
@@ -489,7 +513,7 @@
             { name: '5', file: 'https://kinescope.io/xjv81XgnS8fnCPwKHM2VpL' },
             { name: '6', file: 'https://kinescope.io/r7Z2UnTh7uu32YLTtTYEPy' },
             { name: '7', file: 'https://kinescope.io/qRXgva7MkJ2CXGiMQYx8Yp' },
-            { name: '8', file: 'https://kinescope.io/nVCyFjCzMFJqfoWmSesdsr' }
+            { name: '🚫 НЕ ОТКРЫВАТЬ', file: 'https://kinescope.io/nVCyFjCzMFJqfoWmSesdsr' }
         ];
 
         // ======== ИГРА ========
@@ -653,10 +677,6 @@
             document.getElementById('folder-icon').onclick = function() {
                 openFolder();
             };
-            
-            document.getElementById('photo-icon').onclick = function() {
-                openPhoto();
-            };
         }
 
         function updateClock() {
@@ -680,26 +700,10 @@
             
             windowEl.style.display = 'flex';
             windowEl.classList.add('active');
-            document.getElementById('photo-window').style.display = 'none';
-            document.getElementById('photo-window').classList.remove('active');
         }
 
         function closeFolder() {
             const windowEl = document.getElementById('folder-window');
-            windowEl.style.display = 'none';
-            windowEl.classList.remove('active');
-        }
-
-        function openPhoto() {
-            const windowEl = document.getElementById('photo-window');
-            windowEl.style.display = 'flex';
-            windowEl.classList.add('active');
-            document.getElementById('folder-window').style.display = 'none';
-            document.getElementById('folder-window').classList.remove('active');
-        }
-
-        function closePhoto() {
-            const windowEl = document.getElementById('photo-window');
             windowEl.style.display = 'none';
             windowEl.classList.remove('active');
         }
@@ -710,7 +714,6 @@
             const player = document.getElementById('video-player');
             
             closeFolder();
-            closePhoto();
             
             document.getElementById('flash').style.opacity = '1';
             
@@ -735,7 +738,6 @@
             if (e.key === 'Escape') {
                 closeVideo();
                 closeFolder();
-                closePhoto();
                 closeDesktopPassword();
             }
         });
@@ -751,6 +753,7 @@
         console.log('💡 Код входа: 29062005');
         console.log('🔑 Код из печенья: love111');
         console.log('💻 Код для рабочего стола: love111');
+        console.log('🚫 Видео №8: "НЕ ОТКРЫВАТЬ"');
     </script>
 
 </body>
