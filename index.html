@@ -527,25 +527,27 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
-        /* ===== ОКНО ПАПКИ ===== */
+        /* ===== ОКНО ПАПКИ - ИСПРАВЛЕНО ===== */
         .folder-window {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
             width: 500px;
             max-width: 90vw;
-            max-height: 70vh;
+            max-height: 80vh;
             background: #ece9d8;
             border: 2px solid #0055a4;
             border-radius: 8px 8px 0 0;
-            z-index: 5;
-            display: none;
+            z-index: 1000 !important;
+            display: none !important;
             flex-direction: column;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             font-family: 'Segoe UI', Tahoma, sans-serif;
         }
-        .folder-window.active { display: flex; }
+        .folder-window.active { 
+            display: flex !important; 
+        }
         
         .folder-header {
             background: linear-gradient(180deg, #0a3a7a 0%, #0055a4 100%);
@@ -558,6 +560,7 @@
             cursor: default;
             font-size: 14px;
             font-weight: bold;
+            flex-shrink: 0;
         }
         .folder-header .folder-title {
             display: flex;
@@ -628,22 +631,24 @@
 
         /* ===== ОКНО ДЛЯ ФОТО ===== */
         .photo-window {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
             max-width: 90vw;
             max-height: 80vh;
             background: #ece9d8;
             border: 2px solid #0055a4;
             border-radius: 8px 8px 0 0;
-            z-index: 6;
-            display: none;
+            z-index: 1000 !important;
+            display: none !important;
             flex-direction: column;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             font-family: 'Segoe UI', Tahoma, sans-serif;
         }
-        .photo-window.active { display: flex; }
+        .photo-window.active { 
+            display: flex !important; 
+        }
         
         .photo-header {
             background: linear-gradient(180deg, #0a3a7a 0%, #0055a4 100%);
@@ -656,6 +661,7 @@
             cursor: default;
             font-size: 14px;
             font-weight: bold;
+            flex-shrink: 0;
         }
         .photo-header .close-btn {
             background: #ff6b6b;
@@ -682,6 +688,7 @@
             align-items: center;
             background: #fff;
             border-radius: 0 0 8px 8px;
+            flex-grow: 1;
         }
         .photo-body img {
             max-width: 100%;
@@ -690,22 +697,24 @@
             border-radius: 8px;
         }
 
-        /* ===== ВИДЕОПЛЕЕР ДЛЯ KINESCOPE ===== */
+        /* ===== ВИДЕОПЛЕЕР ===== */
         #video-container { 
-            position: fixed; 
-            top:0; 
-            left:0; 
-            width:100vw; 
-            height:100vh; 
-            background: rgba(0,0,0,0.95); 
-            display: none; 
-            z-index: 250;
+            position: fixed !important;
+            top:0 !important;
+            left:0 !important;
+            width:100vw !important;
+            height:100vh !important;
+            background: rgba(0,0,0,0.95) !important;
+            display: none !important;
+            z-index: 9999 !important;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 40px;
         }
-        #video-container.active { display: flex; }
+        #video-container.active { 
+            display: flex !important; 
+        }
         
         #video-container iframe { 
             width: 100%; 
@@ -720,8 +729,8 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(255,255,255,0.15);
-            border: none;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
             color: #fff;
             font-size: 28px;
             padding: 10px 15px;
@@ -735,11 +744,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255,255,255,0.1);
         }
         #video-container .close-video:hover {
-            background: rgba(255,255,255,0.25);
-            transform: rotate(90deg);
+            background: rgba(255,255,255,0.35);
+            transform: rotate(90deg) scale(1.1);
         }
 
         /* Вспышка */
@@ -918,7 +926,7 @@
         </div>
     </div>
 
-    <!-- ВИДЕОПЛЕЕР ДЛЯ KINESCOPE -->
+    <!-- ВИДЕОПЛЕЕР -->
     <div id="video-container">
         <button class="close-video" onclick="closeVideo()">✕</button>
         <iframe id="video-player" 
@@ -1198,11 +1206,10 @@
             updateClock();
             setInterval(updateClock, 1000);
             
-            // ИСПРАВЛЕНО: Добавляем обработчики событий для папки и фото
             const folderIcon = document.getElementById('folder-icon');
             const photoIcon = document.getElementById('photo-icon');
             
-            // Удаляем старые обработчики, если есть
+            // Убираем старые обработчики
             folderIcon.onclick = null;
             photoIcon.onclick = null;
             
@@ -1253,33 +1260,43 @@
                 body.appendChild(file);
             });
             
-            // Показываем окно
+            // Показываем окно - ПРИНУДИТЕЛЬНО
+            windowEl.style.display = 'flex';
             windowEl.classList.add('active');
+            document.getElementById('photo-window').style.display = 'none';
             document.getElementById('photo-window').classList.remove('active');
         }
 
         function closeFolder() {
-            document.getElementById('folder-window').classList.remove('active');
+            const windowEl = document.getElementById('folder-window');
+            windowEl.style.display = 'none';
+            windowEl.classList.remove('active');
         }
 
         // ======== ОТКРЫТИЕ ФОТО ========
         function openPhoto() {
             console.log('🖼️ Открываем фото...');
-            document.getElementById('photo-window').classList.add('active');
+            const windowEl = document.getElementById('photo-window');
+            windowEl.style.display = 'flex';
+            windowEl.classList.add('active');
+            document.getElementById('folder-window').style.display = 'none';
             document.getElementById('folder-window').classList.remove('active');
         }
 
         function closePhoto() {
-            document.getElementById('photo-window').classList.remove('active');
+            const windowEl = document.getElementById('photo-window');
+            windowEl.style.display = 'none';
+            windowEl.classList.remove('active');
         }
 
-        // ======== ВИДЕОПЛЕЕР ДЛЯ KINESCOPE ========
+        // ======== ВИДЕОПЛЕЕР ========
         function playVideo(index) {
             console.log('🎬 Запуск видео:', index + 1);
             const container = document.getElementById('video-container');
             const player = document.getElementById('video-player');
             
             closeFolder();
+            closePhoto();
             
             const flash = document.getElementById('flash');
             flash.style.opacity = '1';
@@ -1287,7 +1304,7 @@
             setTimeout(() => {
                 flash.style.opacity = '0';
                 container.style.display = 'flex';
-                // Добавляем параметр autoplay
+                container.classList.add('active');
                 player.src = videoFiles[index].file + '?autoplay=1';
             }, 150);
         }
@@ -1297,6 +1314,7 @@
             const player = document.getElementById('video-player');
             player.src = '';
             container.style.display = 'none';
+            container.classList.remove('active');
         }
 
         // Закрытие по Escape
@@ -1305,6 +1323,21 @@
                 closeVideo();
                 closeFolder();
                 closePhoto();
+            }
+        });
+
+        // Закрытие по клику вне окна (для видео)
+        document.addEventListener('click', function(e) {
+            const videoContainer = document.getElementById('video-container');
+            const folderWindow = document.getElementById('folder-window');
+            const photoWindow = document.getElementById('photo-window');
+            
+            // Если клик по видео-контейнеру, но не по iframe
+            if (videoContainer.style.display === 'flex') {
+                const iframe = videoContainer.querySelector('iframe');
+                if (!iframe.contains(e.target) && !e.target.closest('.close-video')) {
+                    // Не закрываем, если клик по крестику
+                }
             }
         });
 
